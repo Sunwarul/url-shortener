@@ -14,9 +14,10 @@ return new class extends Migration
     {
         Schema::create('urls', function (Blueprint $table) {
             $table->id();
-            $table->string('short_path', 6);
-            $table->string('full_path');
-            $table->foreignIdFor(User::class)->nullable();
+            $table->text('original_url');
+            $table->string('short_code', 6)->unique();
+            $table->foreignIdFor(User::class,'created_by')->nullable();
+            $table->timestamp('expire_at')->nullable();
             $table->timestamps();
         });
     }
