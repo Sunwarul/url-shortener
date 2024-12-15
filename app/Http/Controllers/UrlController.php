@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Url;
+use Inertia\Inertia;
 use App\Http\Requests\StoreUrlRequest;
 use App\Http\Requests\UpdateUrlRequest;
+use App\Services\ShortCodeGeneratorInterface;
+use Illuminate\Support\Facades\Auth;
 
 class UrlController extends Controller
 {
@@ -27,9 +30,18 @@ class UrlController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUrlRequest $request)
+    public function store(StoreUrlRequest $request, ShortCodeGeneratorInterface $shortCodeGenerator)
     {
-        //
+        $requestData = $request->validated();
+
+        $url = Url::create([
+            'original_url' => $requestData['original_url'],
+            'short_code' => $shortCodeGenerator->generate($requestData['original_url']),
+            'expire_at' => Auth::check() ? today()->addYears(5) : today()->addDays(7),
+            'created_by' => Auth::id(),
+        ]);
+
+        return to_route('urls.generated', $url->short_code);
     }
 
     /**
@@ -37,8 +49,16 @@ class UrlController extends Controller
      */
     public function show(Url $url)
     {
-        //
+        return redirect()->to($url->original_url);
     }
+
+
+    public function generated(Url $url)
+    {
+        $url->short_code = url($url->short_code);
+        return Inertia::render('UrlView', ['url' => $url]);
+    }
+
 
     /**
      * Show the form for editing the specified resource.

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UrlController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -14,6 +15,8 @@ Route::get('/', function () {
     ]);
 });
 
+
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -25,3 +28,9 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+/**
+ * URL Generation routes
+ */
+Route::post('urls/store', [UrlController::class, 'store'])->name('urls.store');
+Route::get('generated/{url:short_code}', [UrlController::class, 'generated'])->name('urls.generated');
+Route::get('/{url:short_code}', [UrlController::class, 'show'])->name('urls.show');
