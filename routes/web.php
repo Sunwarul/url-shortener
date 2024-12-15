@@ -33,4 +33,6 @@ require __DIR__.'/auth.php';
  */
 Route::post('urls/store', [UrlController::class, 'store'])->name('urls.store');
 Route::get('generated/{url:short_code}', [UrlController::class, 'generated'])->name('urls.generated');
+Route::get('urls', [UrlController::class, 'index'])->name('urls.index');
+
 Route::get('/{url:short_code}', [UrlController::class, 'show'])->name('urls.show');

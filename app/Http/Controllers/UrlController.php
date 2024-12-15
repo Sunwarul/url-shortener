@@ -16,7 +16,13 @@ class UrlController extends Controller
      */
     public function index()
     {
-        //
+        $urls = Url::where('created_by', Auth::id())
+            ->get()
+            ->map(function ($url) {
+                $url->short_code = url($url->short_code);
+                return $url;
+            });
+        return Inertia::render('Urls/Index', ['urls' => $urls]);
     }
 
     /**
