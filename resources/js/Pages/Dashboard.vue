@@ -1,4 +1,5 @@
 <script setup>
+import GenerateUrlForm from '@/Components/GenerateUrlForm.vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 </script>
@@ -22,6 +23,9 @@ import { Head } from '@inertiajs/vue3';
                 >
                     <div class="p-6 text-gray-900 dark:text-gray-100">
                         You're logged in!
+                    </div>
+                    <div>
+                        <GenerateUrlForm />
                     </div>
                 </div>
             </div>
