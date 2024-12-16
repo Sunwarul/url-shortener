@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Url;
 use Inertia\Inertia;
 use App\Http\Requests\StoreUrlRequest;
-use App\Http\Requests\UpdateUrlRequest;
 use App\Services\ShortCodeGeneratorInterface;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,14 +22,6 @@ class UrlController extends Controller
                 return $url;
             });
         return Inertia::render('Urls/Index', ['urls' => $urls]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -60,30 +51,5 @@ class UrlController extends Controller
     {
         $url->short_code = url($url->short_code);
         return Inertia::render('UrlView', ['url' => $url]);
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Url $url)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateUrlRequest $request, Url $url)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Url $url)
-    {
-        //
     }
 }

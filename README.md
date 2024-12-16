@@ -7,14 +7,15 @@
 - PHP 8.2+
 - MySQL
 - Composer (For PHP Dependency)
-- Node (Npm)
+- NodeJS LTS (with Npm)
 
 ### Dependency install:
 
+- `git clone git@github.com:Sunwarul/url-shortener.git`
+- `cp .env.example .env`
 - `composer install`
 - `npm install && npm run build`
-- `php artisan migrate`
-- `php artisan db:seed`
+- `php artisan migrate --seed`
 
 ### To run the application locally:
 
