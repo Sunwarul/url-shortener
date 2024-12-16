@@ -39,15 +39,12 @@ class UrlController extends Controller
     public function store(StoreUrlRequest $request, ShortCodeGeneratorInterface $shortCodeGenerator)
     {
         $requestData = $request->validated();
-
-        $url = Url::create([
-            'original_url' => $requestData['original_url'],
-            'short_code' => $shortCodeGenerator->generate($requestData['original_url']),
-            'expire_at' => Auth::check() ? today()->addYears(5) : today()->addDays(7),
-            'created_by' => Auth::id(),
-        ]);
-
-        return to_route('urls.generated', $url->short_code);
+        $generatedUrl = $shortCodeGenerator->generate($requestData);
+        if(isset($generatedUrl)) {
+            return Auth::check() ? to_route('urls.index') : to_route('urls.generated', $generatedUrl->short_code);
+        } else {
+            return back()->withErrors(['original_url' => 'Short code generation failed. Try again please!']);
+        }
     }
 
     /**

@@ -1,6 +1,9 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import { Link } from '@inertiajs/vue3';
+
 defineProps({
     urls: Object
 });
@@ -12,9 +15,17 @@ defineProps({
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                Url's List
-            </h2>
+            <div class="flex items-center justify-between">
+                <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
+                    Url's List
+                </h2>
+                <div>
+                    <PrimaryButton>
+                        <Link :href="route('dashboard')">Create New</Link>
+                    </PrimaryButton>
+                </div>
+
+            </div>
         </template>
 
         <div class="py-12">

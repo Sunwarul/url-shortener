@@ -22,7 +22,7 @@ class StoreUrlRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'original_url' => 'url|required'
+            'original_url' => 'url|required|unique:urls,short_code'
         ];
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Models\Url;
+
 interface ShortCodeGeneratorInterface
 {
-    public function generate(string $url): string;
+    public function generate(array $requestData): ?Url;
 }
